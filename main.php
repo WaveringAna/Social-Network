@@ -14,9 +14,9 @@
 		<h2>Browse other's pages</h2>
 		<?php
 		$dir = './profiles';
-		$files = array_slice(scandir('profiles'), 2);  //The array_slice removes . and ..
+		$files = array_slice(scandir('profiles'), 2);  					//The array_slice removes . and ..
 		foreach($files as $file) {
-			print("<a href='profiles/" . $file . "'>" . $file . "</a><br>");
+			print("<a href='profiles/" . $file . "'>" . $file . "</a><br>");	//Creates links to all the html files in profiles, might create a problem because of XSS flaws
 		}
 		?>
 	</div>
