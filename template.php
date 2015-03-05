@@ -3,7 +3,7 @@ $name = $_POST['name'];
 $bio = $_POST['bio'];
 
 $file = 'profiles/' . $name . '.html';
-$content = '
+$content = '				
 <!doctype html>
 <html>
 	<style>
@@ -16,9 +16,9 @@ $content = '
 		<h2>'. $name .'</h4>
 		<p>'. $bio . '</p>
 	</body>
-</html> ';
+</html> ';				//The template
 
-file_put_contents($file, $content);
+file_put_contents($file, $content);	//Write to the file
 
-header('Location: ' . $file);
+header('Location: ' . $file);		//redirect to the newly created page.
 ?>
