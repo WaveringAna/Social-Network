@@ -4,16 +4,18 @@ This is a experiment on making my own Social Media website. If this turns out to
 
 Contributing
 ----------------
-Create a pull request and I will review it.
+Create a pull request and I will review it. Be sure it WORKS.
 
 Current Issues
 ----------------
-Huge XSS flaw when making a page.
+Code is messy
+Some XSS flaws
 
 Todo
 ----------------
-Create a log in system and move the template system to that, assign it to a mysql database
-
+Make sure users can edit their pages
+Clean up the code.
+Make sure I don't work when I am stressed
 
 
 
