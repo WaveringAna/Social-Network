@@ -22,5 +22,5 @@ Make sure I don't work when I am stressed
 
 
 
-.
+---------------
 Feel free to fork this
