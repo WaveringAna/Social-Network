@@ -41,11 +41,11 @@ if (isset($_POST['submit'])) {
 	$user = $_POST['username'];
 	$password = $_POST['pass'];
 	
-	if (!$user | !$pass | !$_POST['pass2'] ) {    						//Check if the user filled in the required stuff
+	if (!$user | !$pass | !$_POST['pass2'] ) {    				//Check if the user filled in the required stuff
  		die('You did not complete all of the required fields');
 	}
 	
-	if ($password != $_POST['pass2']) {									//Check if they matched
+	if ($password != $_POST['pass2']) {					//Check if they matched
  		die('Your passwords did not match. ');
  	}
 	
@@ -54,16 +54,17 @@ if (isset($_POST['submit'])) {
 		die('The username '.$username.' already exists');
 	} else {
 		
-		$password = md5($password);										//Hash the password in md5 for security reasons 
+		$password = md5($password);					//Hash the password in md5 for security reasons 
 		$insert = "INSERT INTO users (username, password)
 		VALUES ('".$username."', '".$_POST['pass']."')";
 
 		if ($mysqli->query($insert) === TRUE) {
-			createpage($_POST['username'], $_POST['bio']);				//Create the page
+			createpage($_POST['username'], $_POST['bio']);		//Create the page
 			
-			$hour = time() + 3600; 										//Set a login cookie for an hour, obviously changing it later to where I have to depend on this but will do 
+			$hour = time() + 3600; 				/*Set a login cookie for an hour, obviously changing it later to where 
+											I have to depend on this but will do */
 			setcookie(USER, $_POST['username'], $hour); 
-			setcookie(PASSWORD, $_POST['pass'], $hour);					//The pass cookie is the password hashed with md5, not the raw password
+			setcookie(PASSWORD, $_POST['pass'], $hour);	//The pass cookie is the password hashed with md5, not the raw password
 			
 			echo '<h2>You have registered, <a href="../profiles/'.$usercheck.'.php">click here to view your page</a></h2>';
 		} else {
