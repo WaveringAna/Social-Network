@@ -6,7 +6,7 @@ $mysqldatabase = 'social';
 
 function createpage($name, $bio) {													//TODO, clean up this function
 	$file = '../profiles/' . $name . '.php';
-	$content = '
+	$content = '		/* this part is really messy */
 <?php
 if(isset($_COOKIE["USER"])) {
 	$user = $_COOKIE["USER"];
