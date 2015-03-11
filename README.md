@@ -8,7 +8,6 @@ Create a pull request and I will review it. Be sure it WORKS.
 
 Current Issues
 ----------------
-Code is messy
 
 Some XSS flaws
 
