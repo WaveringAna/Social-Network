@@ -37,7 +37,7 @@ if (isset($_POST['submit'])) {
 			die("there's been an error");
 		}
 	}
-} else {
+} else {		//If the form wasn't submitted, display this HTML
 ?>
 <!doctype html>
 <html>
