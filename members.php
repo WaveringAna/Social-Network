@@ -1,4 +1,5 @@
 <?php
+session_start();
 error_reporting(E_ALL);
 
 $host = 'localhost';
@@ -8,9 +9,9 @@ $mysqldatabase = 'social';
 
 $mysqli = new mysqli($host, $mysqluser, $mysqlpassword, $mysqldatabase);
 
-if(isset($_COOKIE['USER'])) {
-	$user = $_COOKIE['USER'];
-	$pass = $_COOKIE['PASSWORD'];
+if(isset($_SESSION['USER'])) {
+	$user = $_SESSION['USER']
+	$pass = $_SESSION['PASS'];
 	$query= mysqli_query($mysqli, 'SELECT * FROM users WHERE username="'.$user.'"');
 	$info = mysqli_fetch_array($query);
 	if ($pass != $info['password']) { 			

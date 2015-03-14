@@ -1,11 +1,11 @@
 <?php
+session_start();
 error_reporting(E_ALL);
 
 $host = 'localhost';
 $mysqluser = 'root';
 $mysqlpassword = '';
 $mysqldatabase = 'social';
-
 $mysqli = new mysqli($host, $mysqluser, $mysqlpassword, $mysqldatabase);
 
 if (isset($_POST['submit'])) {			 // if form has been submitted
@@ -24,9 +24,9 @@ if (isset($_POST['submit'])) {			 // if form has been submitted
 			die('Incorrect password, please try again.');
 		} else {
 			$hour = time() + 3600; 
-			setcookie(USER, $_POST['username'], $hour); 
-			setcookie(PASSWORD, $_POST['pass'], $hour);	 
-			header('Location: members.php');
+			$_SESSION['USER'] = $_POST['username'];
+			$_SESSION['PASS'] = $_POST['pass']; 
+			header('Location: index.php');
 		}
 	}
 } else {

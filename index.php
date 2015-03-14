@@ -1,4 +1,5 @@
 <?php
+session_start();
 error_reporting(E_ALL);
 
 $host = 'localhost';
@@ -6,17 +7,17 @@ $mysqluser = 'root';
 $mysqlpassword = '';
 $mysqldatabase = 'social';
 $mysqli = new mysqli($host, $mysqluser, $mysqlpassword, $mysqldatabase);
+
 $isLoggedin = false;
-if(isset($_COOKIE['USER'])) {
-	$user = $_COOKIE['USER'];
-	$pass = $_COOKIE['PASSWORD'];
+
+if(isset($_SESSION['USER'])) {
+	$user = $_SESSION['USER'];
+	$pass = $_SESSION['PASS'];
 	$query= mysqli_query($mysqli, 'SELECT * FROM users WHERE username="'.$user.'"');
 	$info = mysqli_fetch_array($query);
 	if ($pass != $info['password']) { 
-		$past = time() - 100; 
-		//this makes the time in the past to destroy the cookie 
-		setcookie(USER, 'gone', $past); 
-		setcookie(PASSWORD, 'gone', $past); 
+		unset($_SESSION['USER']); 
+		unset($_SESSION['PASS']);
 	} else {
 		$isLoggedin = true;
 	}
@@ -38,8 +39,8 @@ if(isset($_COOKIE['USER'])) {
 	</style>
 	<h1><a href="#">Social Network</a></h1>
 	<ul class='list'>
-		<li class='list'><a href='code/register.php'>Register</a></li>
-		<li class='list'><a href='code/login.php'>Login</a></li>
+		<li class='list'><a href='register.php'>Register</a></li>
+		<li class='list'><a href='login.php'>Login</a></li>
 	</ul>
 	<hr>
 	<div> 
@@ -52,9 +53,13 @@ if(isset($_COOKIE['USER'])) {
 		}
 		
 		if ($isLoggedin == true) {
-			echo '<br>You\'re a member, hooray';
+			echo '<br>You\'re a member, hooray<br>';
+			?>
+			<h2>Chat</h2>
+			<iframe src="https://kiwiirc.com/client?settings=d4f8bbdc038d74c9ff726025b47826b8" style="border:0; width:100%; height:450px;"></iframe>
+			<?php
 		} else {
-			echo '<br>Looks like you\'re not a member or not logged in, <a href="code/register.php">sign up today</a>';
+			echo '<br>Looks like you\'re not a member or not logged in, <a href="register.php">sign up today</a> <a href="login.php">or log in</a><br>';
 		}
 		?>
 	</div>
