@@ -1,6 +1,6 @@
 <?php
 function createpage($name, $bio) {													
-	$file = '/profiles/' . $name . '.php';	//assuming the file calling this is in the root directory
+	$file = './profiles/' . $name . '.php';	//assuming the file calling this is in the root directory
 	$content = '
 
 <!doctype html>

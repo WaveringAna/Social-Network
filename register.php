@@ -10,7 +10,7 @@ $mysqldatabase = 'social';
 $mysqli = new mysqli($host, $mysqluser, $mysqlpassword, $mysqldatabase);
 if (isset($_POST['submit'])) { 
 	$user = $_POST['username'];
-	$password = md5($_POST['pass']);						//Hash the password in md5 for security reasons
+	$password = md5($_POST['pass']);		//Hash the password in md5 for security reasons
 	$pass2 = md5($_POST['pass2']);	
 	if (!$user | !$password| !$pass2 ) {    				//Check if the user filled in the required stuff
  		die('You did not complete all of the required fields');
@@ -28,15 +28,21 @@ if (isset($_POST['submit'])) {
 		VALUES ('".$user."', '".$password."')";
 
 		if ($mysqli->query($insert) === TRUE) {
-			createpage($user, $_POST['bio']);		//Create the page, the function is from classes/Main.php		
-			$_SESSION['USER'] = $user; 
-			$_SESSION['PASS'] = $pass;	//The pass session is the password hashed with md5, not the raw password
-			echo '<h2>You have registered, <a href="/profiles/'.$user.'.php">click here to view your page</a></h2>';
+			createpage($user, $_POST['bio']);		//Create the page, the function is from classes/Main.php
+			if (isset($_POST['remember'])) {
+				$hour = time() + 7 * 24 * 60 * 60;      //Sets a remember me cookie for a week
+				setcookie('USER', $user, $hour, '/');
+				setcookie('PASS', $password, $hour, '/');
+			} else {
+				$_SESSION['USER'] = $user; 
+				$_SESSION['PASS'] = $password;	//The pass session is the password hashed with md5, not the raw password
+			}
+			echo '<h2>You have registered, <a href="profiles/'.$user.'.php">click here to view your page</a></h2>';
 		} else {
-			die("there's been an error");
+			die("there's been an error processing your request");
 		}
-	}
-} else {
+	}			//If the user already exists
+} else {		//If the form has not been submitted
 ?>
 <!doctype html>
 <html>
@@ -68,6 +74,7 @@ if (isset($_POST['submit'])) {
 		<input type='password' name='pass' maxlength='60' required><br>
 		Confirm password:
 		<input type='password' name='pass2' maxlength='60' required><br>
+		<input type='checkbox' name='remember'> Remember Me <br>
 		<input type="submit" name="submit" value="Register">
 	</form>
 </html>

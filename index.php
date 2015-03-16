@@ -10,7 +10,18 @@ $mysqli = new mysqli($host, $mysqluser, $mysqlpassword, $mysqldatabase);
 
 $isLoggedin = false;
 
-if(isset($_SESSION['USER'])) {
+if (isset($_COOKIE['USER'])) {
+	$user = $_COOKIE['USER'];
+	$pass= $_COOKIE['PASS'];
+	$query= mysqli_query($mysqli, 'SELECT * FROM users WHERE username="'.$user.'"');
+	$info = mysqli_fetch_array($query);
+	if ($pass != $info['password']) {
+		setcookie('USER', 'deleted', time()-10, '/');
+		setcookie('PASS', 'deleted', time()-10, '/');
+	} else {
+		$isLoggedin = true;
+	}
+} elseif (isset($_SESSION['USER'])) {
 	$user = $_SESSION['USER'];
 	$pass = $_SESSION['PASS'];
 	$query= mysqli_query($mysqli, 'SELECT * FROM users WHERE username="'.$user.'"');
@@ -51,13 +62,10 @@ if(isset($_SESSION['USER'])) {
 		foreach($files as $file) {
 			print("<a href='profiles/" . $file . "'>" . $file . "</a><br>");	//Creates links to all the html files in profiles, might create a problem because of XSS flaws
 		}
-		
+
 		if ($isLoggedin == true) {
 			echo '<br>You\'re a member, hooray<br>';
-			?>
-			<h2>Chat</h2>
-			<iframe src="https://kiwiirc.com/client?settings=d4f8bbdc038d74c9ff726025b47826b8" style="border:0; width:100%; height:450px;"></iframe>
-			<?php
+			echo '<h2>Chat</h2><iframe src="https://kiwiirc.com/client?settings=d4f8bbdc038d74c9ff726025b47826b8" style="border:0; width:100%; height:450px;"></iframe>';
 		} else {
 			echo '<br>Looks like you\'re not a member or not logged in, <a href="register.php">sign up today</a> <a href="login.php">or log in</a><br>';
 		}
