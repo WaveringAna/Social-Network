@@ -1,6 +1,7 @@
 <?php
+ini_set('display_errors',1);
 session_start();
-require_once 'classes/Main.php';
+require 'classes/Main.php';
 
 $host = 'localhost';
 $mysqluser = 'root';
@@ -29,6 +30,10 @@ if (isset($_POST['submit'])) {
 
 		if ($mysqli->query($insert) === TRUE) {
 			createpage($user, $_POST['bio']);		//Create the page, the function is from classes/Main.php
+			if (isset($_POST['email'])) {
+				sendMail($user, $_POST['email']);    //Send a welcome email, the function is from classes/Main.php
+			}
+			
 			if (isset($_POST['remember'])) {
 				$hour = time() + 7 * 24 * 60 * 60;      //Sets a remember me cookie for a week
 				setcookie('USER', $user, $hour, '/');
@@ -68,12 +73,14 @@ if (isset($_POST['submit'])) {
 	<form action = "<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 		Username:
 		<input type='text' name='username' maxlength='60' required><br>
-		Bio:
-		<input type='text' name='bio' maxlength='60' required><br>
+		Bio:<br>
+		<textarea name='bio' required></textarea><br>
 		Password:
 		<input type='password' name='pass' maxlength='60' required><br>
 		Confirm password:
 		<input type='password' name='pass2' maxlength='60' required><br>
+		Email: (not required)
+		<input type='email' name='email' maxlength='60'><br>
 		<input type='checkbox' name='remember'> Remember Me <br>
 		<input type="submit" name="submit" value="Register">
 	</form>
