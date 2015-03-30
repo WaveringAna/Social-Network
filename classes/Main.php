@@ -25,14 +25,45 @@ function sendMail($name, $email) {
 	$subject = "Hello there!";
 	$mailcontent = "
 <html>
-	<body>
-		<table style='width=100% height=50% background-color:black; color:#DC143C'>
+	<body style='margin: 0; padding: 0;'>
+		 <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+		<table border='1' cellpadding='0' cellspacing='0' width='100%'>
 			<tr>
-				<td>Welcome $name!</td>
-			</tr>
+				<td>
+					<table align='center' border='1' cellpadding='0' cellspacing='0'  style='border-collapse: collapse;'>
+						<tr>
+							<td align='center' bgcolor='#70bbd9' style='padding: 40px 0;'>
+								<img src='http://02df616.netsolhost.com/Welcome-transparent.gif' alt='Welcome!' style='display: block;' />
+							</td>
+						</tr>
+						<tr bgcolor='#ffffff'>
+							<td style='padding: 40px 30px;'>
+								<table border='1' cellpadding='0' cellspacing='0' width='100%'>
+									<tr>
+										<td><h2>Welcome $name!</h2></td>
+									</tr>
+									<tr>
+										<td>We are glad to welcome you to our community!</td>
+									</tr>
+									<tr>
+										<td>
+											<table border='1' cellpadding='0' cellspacing='0' width='100%'>
+												<td width='260' valign='top'>
+													<img src='http://simpleicon.com/wp-content/uploads/lock-10.png' alt='security' width='100%' height='200' style='display: block;'>
+													We take customer security to heart. We never reveal passwords to anyone.
+												</td>
+												<td width='260' valign='top'>
+													<img src='http://stockfresh.com/zooms/stockfresh_id342235_2c42d9.jpg' alt='friends' width='100%' height='200' style='display: block;'>
+													Make friends. You can stay together and connected with friends far away!
+												</td>
+											</table>
+										</td>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
 			<tr>
-				<td>We are really happy you decided to join us in this new website!</td>
-			</tr>
 		</table>
 	</body>
 </html> ";
