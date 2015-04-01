@@ -10,6 +10,9 @@ $mysqldatabase = 'social';
 
 $mysqli = new mysqli($host, $mysqluser, $mysqlpassword, $mysqldatabase);
 if (isset($_POST['submit'])) { 
+	echo '<pre>';
+	print_r ($_POST);
+	echo '</pre>';
 	$user = $_POST['username'];
 	$password = md5($_POST['pass']);		//Hash the password in md5 for security reasons
 	$pass2 = md5($_POST['pass2']);	
@@ -42,11 +45,12 @@ if (isset($_POST['submit'])) {
 				$_SESSION['USER'] = $user; 
 				$_SESSION['PASS'] = $password;	//The pass session is the password hashed with md5, not the raw password
 			}
+			
 			echo '<h2>You have registered, <a href="profiles/'.$user.'.php">click here to view your page</a></h2>';
 		} else {
 			die("there's been an error processing your request");
 		}
-	}			//If the user already exists
+	}			//endif
 } else {		//If the form has not been submitted
 ?>
 <!doctype html>
@@ -63,6 +67,7 @@ if (isset($_POST['submit'])) {
 		padding:0;
 	}
 	</style>
+	<script src='https://www.google.com/recaptcha/api.js'></script>
 	<h1><a href="../index.php">Social Network</a></h1>
 	<ul class='list'>
 		<li class='list'><a href='register.php'>Register</a></li>
@@ -82,6 +87,7 @@ if (isset($_POST['submit'])) {
 		Email: (not required)
 		<input type='email' name='email' maxlength='60'><br>
 		<input type='checkbox' name='remember'> Remember Me <br>
+		<div class="g-recaptcha" data-sitekey="6Le4sQQTAAAAAIs8MbyLQAenfXSpdbAaiPvzc21V"></div>
 		<input type="submit" name="submit" value="Register">
 	</form>
 </html>

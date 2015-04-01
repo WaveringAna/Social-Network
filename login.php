@@ -58,4 +58,4 @@ if (isset($_POST['submit'])) {			 // if form has been submitted
 	</form>
 	<a href='register.php'>Don't have an account?</a>
 </html>
-<?php } ?>
+<?php } //endelse ?>

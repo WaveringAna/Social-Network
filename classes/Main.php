@@ -26,7 +26,8 @@ function sendMail($name, $email) {
 	$mailcontent = "
 <html>
 	<body style='margin: 0; padding: 0;'>
-		 <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+		<meta charset=UTF-8 />
 		<table border='1' cellpadding='0' cellspacing='0' width='100%'>
 			<tr>
 				<td>
