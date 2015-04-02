@@ -1,8 +1,47 @@
 <?php
 function createpage($name, $bio) {													
 	$file = './profiles/' . $name . '.php';	//assuming the file calling this is in the root directory
-	$content = '
+	$content = "
+<?php
+\$belongsto = ".htmlspecialchars($name, ENT_QUOTES, 'UTF-8').";  //To prevent XSS.
 
+\$host = 'localhost';
+\$mysqluser = 'root';
+\$mysqlpassword = '';
+\$mysqldatabase = 'social';
+\$mysqli = new mysqli(\$host, \$mysqluser, \$mysqlpassword, \$mysqldatabase);
+
+\$canEdit = false;
+
+if (isset(\$_COOKIE['USER'])) {
+	\$user = \$_COOKIE['USER'];
+	\$pass= \$_COOKIE['PASS'];
+	\$query= mysqli_query(\$mysqli, 'SELECT * FROM users WHERE username=\"'.\$user.'\"');
+	\$info = mysqli_fetch_array(\$query);
+	if (\$pass != \$info['password']) {
+		setcookie('USER', 'deleted', time()-10, '/');
+		setcookie('PASS', 'deleted', time()-10, '/');
+	} else {
+		if (\$belongsto == \$user) {
+			\$canEdit = true;
+		}
+	}
+} elseif (isset(\$_SESSION['USER'])) {
+	\$user = \$_SESSION['USER'];
+	\$pass = \$_SESSION['PASS'];
+	\$query= mysqli_query(\$mysqli, 'SELECT * FROM users WHERE username=\"'.\$user.'\"');
+	\$info = mysqli_fetch_array(\$query);
+	if (\$pass != \$info['password']) { 
+		unset(\$_SESSION['USER']); 
+		unset(\$_SESSION['PASS']);
+	} else {
+		if (\$belongsto == \$user) {
+			\$canEdit = true;
+		}
+	}
+}
+
+?>
 <!doctype html>
 <html>
 	<style>
@@ -12,12 +51,12 @@ function createpage($name, $bio) {
 	}
 	</style>
 	<body>
-		<h1><a href="../index.php">Social Network</a></h1>
+		<h1><a href='../index.php'>Social Network</a></h1>
 		<hr>
-		<h2>'. htmlspecialchars($name, ENT_QUOTES, 'UTF-8') .'</h4>
-		<p>'. htmlspecialchars($bio, ENT_QUOTES, 'UTF-8') . '</p>
+		<h2>". htmlspecialchars($name, ENT_QUOTES, 'UTF-8') ."</h4>
+		<p>". htmlspecialchars($bio, ENT_QUOTES, 'UTF-8') . "</p>
 	</body>
-</html> ';							    //The template
+</html> ";							    //The template
 	file_put_contents($file, $content);	//Write to the file
 }
 
