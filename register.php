@@ -10,9 +10,9 @@ $mysqldatabase = 'social';
 
 $mysqli = new mysqli($host, $mysqluser, $mysqlpassword, $mysqldatabase);
 if (isset($_POST['submit'])) { 
-	echo '<pre>';
+	/* echo '<pre>';
 	print_r ($_POST);
-	echo '</pre>';
+	echo '</pre>'; For debugging */
 	$user = $_POST['username'];
 	$password = md5($_POST['pass']);		//Hash the password in md5 for security reasons
 	$pass2 = md5($_POST['pass2']);	
