@@ -1,7 +1,7 @@
 <?php
 ini_set('display_errors',1);
 session_start();
-require 'classes/Main.php';
+require 'classes/Template.php';
 
 $host = 'localhost';
 $mysqluser = 'root';
